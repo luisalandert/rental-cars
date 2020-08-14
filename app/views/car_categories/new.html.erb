@@ -1,3 +1,6 @@
+<% @car_category.errors.full_messages.each do |message| %>
+<p><%= message %></p>
+<% end %>
 <div>
     <%= form_with model: @car_category, local: true do |f| %>
     <div>

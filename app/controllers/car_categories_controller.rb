@@ -9,8 +9,12 @@ class CarCategoriesController < ApplicationController
     @car_category = CarCategory.new
   end
   def create
-    @car_category = CarCategory.create(car_category_params) #create -> new e save
-    redirect_to @car_category 
+    @car_category = CarCategory.new(car_category_params)
+    if @car_category.save
+      redirect_to @car_category
+    else
+      render :new 
+    end
   end
 
   private
