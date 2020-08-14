@@ -8,7 +8,7 @@ feature 'Admin register valid car category' do
     fill_in 'Nome', with: ''
     fill_in 'Diária', with: ''
     fill_in 'Seguro do carro', with: ''
-    fill_in 'Seguro para terceiros', with: ''
+    fill_in 'Seguro de terceiros', with: ''
     click_on 'Enviar'
 
     expect(CarCategory.count).to eq 0  
@@ -25,7 +25,7 @@ feature 'Admin register valid car category' do
     fill_in 'Nome', with: 'Top'
     fill_in 'Diária', with: '100'
     fill_in 'Seguro do carro', with: '50'
-    fill_in 'Seguro para terceiros', with: '10'
+    fill_in 'Seguro de terceiros', with: '10'
     click_on 'Enviar'
 
     expect(page).to have_content('já está em uso')

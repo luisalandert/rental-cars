@@ -17,7 +17,7 @@ feature 'Admin register manufacturer' do
     fill_in 'Nome', with: 'Top'
     fill_in 'Diária', with: '100'
     fill_in 'Seguro do carro', with: '50'
-    fill_in 'Seguro para terceiros', with: '10'
+    fill_in 'Seguro de terceiros', with: '10'
     click_on 'Enviar'
 
     expect(current_path).to eq car_category_path(CarCategory.last)
