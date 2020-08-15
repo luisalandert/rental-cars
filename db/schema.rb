@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_10_150521) do
+ActiveRecord::Schema.define(version: 2020_08_15_010606) do
 
   create_table "car_categories", force: :cascade do |t|
     t.string "name"
     t.decimal "daily_rate"
     t.decimal "car_insurance"
     t.decimal "third_party_insurance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subsidiaries", force: :cascade do |t|
+    t.string "name"
+    t.string "CNPJ"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
