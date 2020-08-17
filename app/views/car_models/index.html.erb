@@ -1,0 +1,13 @@
+<%= link_to 'Voltar', root_path %>
+
+<h1>Modelos de carros</h1>
+<% @car_models.each do |car_model|%>
+    <div>
+        <h2><%= car_model.name %></h2> 
+        <ul>
+            <li><%= car_model.manufacturer %></li>
+            <li><%= car_model.year %></li>
+            <li><%= car_model.car_category.name %></li>
+        </ul>
+    </div>
+<% end %>
