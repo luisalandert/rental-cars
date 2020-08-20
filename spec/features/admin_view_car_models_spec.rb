@@ -41,9 +41,35 @@ feature 'Admin view car models' do
 
   end
   
-  xscenario 'and view car category details' do
+  scenario 'and view car category details from model page' do
+    car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
+    CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
+                     motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
+
+    visit car_models_path
+    click_on 'Fox'
+    click_on 'Top'
+
+    # expect(current_path).to eq car_categories_path(car_category.id)
+    expect(page).to have_content('200') 
   end
 
-  xscenario 'and nothing is registered' do
+  scenario 'and view car category details from model index page' do
+    car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
+    CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
+                     motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
+
+    visit car_models_path
+    click_on 'Top'
+
+    # expect(current_path).to eq car_categories_path(car_category.id)
+    expect(page).to have_content('200') 
+  end
+
+  scenario 'and nothing is registered' do
+    visit root_path
+    click_on 'Modelos de carro'
+
+    expect(page).to have_content('Nenhum modelo cadastrado')
   end
 end

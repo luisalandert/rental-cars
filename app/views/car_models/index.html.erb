@@ -3,12 +3,14 @@
 <h1>Modelos de carro</h1>
 <% @car_models.each do |car_model|%>
     <div>
-
         <%= link_to car_model.name, car_model %>
         <ul>
             <li><%= car_model.manufacturer %></li>
             <li><%= car_model.year %></li>
-            <li><%= car_model.car_category.name %></li>
+            <li><%= link_to car_model.car_category.name, car_category_path(car_model.car_category.id) %></li>
         </ul>
     </div>
+<% end %>
+<% if @car_models.empty? %>
+    <h2>Nenhum modelo cadastrado</h2>
 <% end %>

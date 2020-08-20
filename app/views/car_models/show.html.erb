@@ -7,7 +7,7 @@
     <dt><%= CarModel.human_attribute_name(:motorization) %></dt>
     <dd><%= @car_model.motorization %></dd>
     <dt><%= CarModel.human_attribute_name(:car_category) %></dt>
-    <dd><%= @car_model.car_category.name %></dd>
+    <dd><%= link_to @car_model.car_category.name, car_category_path(@car_model.car_category.id) %></dd>
     <dt><%= CarModel.human_attribute_name(:fuel_type) %></dt>
     <dd><%= @car_model.fuel_type %></dd>
 </dl> 
