@@ -29,7 +29,7 @@ feature 'Admin view car models' do
                      motorization: '1.0', car_category: car_category, fuel_type: 'Flex')
 
     visit car_models_path
-    click_on 'Fox'
+    click_on 'Fox - 2019'
 
     expect(page).to have_content('Fox')
     expect(page).to have_content('2019')
@@ -38,6 +38,7 @@ feature 'Admin view car models' do
     expect(page).to have_content('Top')
     expect(page).to have_content('Flex')
     expect(page).not_to have_content('Onix')
+    expect(page).not_to have_content('Chevrolet')
 
   end
   

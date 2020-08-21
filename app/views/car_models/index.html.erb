@@ -1,9 +1,10 @@
 <%= link_to 'Voltar', root_path %>
+<%= link_to 'Registrar um modelo de carro', new_car_model_path %>
 
 <h1>Modelos de carro</h1>
 <% @car_models.each do |car_model|%>
     <div>
-        <%= link_to car_model.name, car_model %>
+        <%= link_to "#{car_model.name} - #{car_model.year}", car_model %>
         <ul>
             <li><%= car_model.manufacturer %></li>
             <li><%= car_model.year %></li>
