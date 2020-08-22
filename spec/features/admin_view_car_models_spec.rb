@@ -51,7 +51,7 @@ feature 'Admin view car models' do
     click_on 'Fox'
     click_on 'Top'
 
-    # expect(current_path).to eq car_categories_path(car_category.id)
+    # expect(current_path).to eq car_categories_path(car_category)
     expect(page).to have_content('200') 
   end
 
