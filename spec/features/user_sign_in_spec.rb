@@ -22,7 +22,7 @@ feature 'User sign in' do
     expect(page).not_to have_link('Entrar')
   end
 
-  xscenario 'and sign out' do
+  scenario 'and sign out' do
     User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
                  password: 'abc123')
 
