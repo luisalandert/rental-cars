@@ -1,7 +1,19 @@
 require 'rails_helper'
 
 feature 'Admin register manufacturer' do
+  scenario 'must be signed in' do
+    visit root_path
+    click_on 'Categorias'
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content('Para continuar, faça login ou registre-se.')
+  end
+
   scenario 'from index page' do
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                 password: 'abc123')
+
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Categorias'
 
@@ -10,6 +22,10 @@ feature 'Admin register manufacturer' do
   end
 
   scenario 'successfully' do
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                        password: 'abc123')
+
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Categorias'
     click_on 'Registrar uma nova categoria'

@@ -1,13 +1,35 @@
 require 'rails_helper'
 
 feature 'Admin view car models' do
+  scenario 'must be signed in' do
+    visit root_path
+    click_on 'Modelos de carro'
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content('Para continuar, faça login ou registre-se.')
+  end
+
+  scenario 'must be signed in to access show' do
+    car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
+    CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
+                     motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
+
+    visit car_model_path(1)
+
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content('Para continuar, faça login ou registre-se.')
+  end
+
   scenario 'and view list' do
     car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
     CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
                      motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
     CarModel.create!(name: 'Onix', year: 2020, manufacturer: 'Chevrolet', 
                      motorization: '1.0', car_category: car_category, fuel_type: 'Flex')
-
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                        password: 'abc123')
+     
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de carro'
 
@@ -27,7 +49,10 @@ feature 'Admin view car models' do
                      motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
     CarModel.create!(name: 'Onix', year: 2020, manufacturer: 'Chevrolet', 
                      motorization: '1.0', car_category: car_category, fuel_type: 'Flex')
-
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                        password: 'abc123')
+     
+    login_as(user, scope: :user)
     visit car_models_path
     click_on 'Fox - 2019'
 
@@ -46,7 +71,10 @@ feature 'Admin view car models' do
     car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
     CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
                      motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
-
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                        password: 'abc123')
+     
+    login_as(user, scope: :user)
     visit car_models_path
     click_on 'Fox'
     click_on 'Top'
@@ -59,7 +87,10 @@ feature 'Admin view car models' do
     car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
     CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
                      motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
-
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                        password: 'abc123')
+     
+    login_as(user, scope: :user)
     visit car_models_path
     click_on 'Top'
 
@@ -68,6 +99,10 @@ feature 'Admin view car models' do
   end
 
   scenario 'and nothing is registered' do
+    user = User.create!(name: 'Luisa Landert', email: 'luisa@email.com', 
+                        password: 'abc123')
+
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de carro'
 
