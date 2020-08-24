@@ -10,9 +10,9 @@ feature 'Admin view subsidiaries' do
   end
 
   scenario 'must be signed in to access details' do
-    Subsidiary.create!(name: 'Morumbi', CNPJ: '00862340434393', address: 'Av. Morumbi, 378')
+    morumbi = Subsidiary.create!(name: 'Morumbi', CNPJ: '00862340434393', address: 'Av. Morumbi, 378')
 
-    visit subsidiary_path(1)
+    visit subsidiary_path(morumbi)
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content('Para continuar, faça login ou registre-se.')

@@ -11,10 +11,10 @@ feature 'Admin view car models' do
 
   scenario 'must be signed in to access show' do
     car_category = CarCategory.create!(name: 'Top', daily_rate: 200, car_insurance: 50, third_party_insurance: 30)
-    CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
+    fox = CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
                      motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
 
-    visit car_model_path(1)
+    visit car_model_path(fox)
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content('Para continuar, faça login ou registre-se.')
@@ -79,8 +79,7 @@ feature 'Admin view car models' do
     click_on 'Fox'
     click_on 'Top'
 
-    # expect(current_path).to eq car_categories_path(car_category)
-    expect(page).to have_content('200') 
+    expect(current_path).to eq car_category_path(car_category)
   end
 
   scenario 'and view car category details from model index page' do
@@ -94,8 +93,7 @@ feature 'Admin view car models' do
     visit car_models_path
     click_on 'Top'
 
-    # expect(current_path).to eq car_categories_path(car_category.id)
-    expect(page).to have_content('200') 
+    expect(current_path).to eq car_category_path(car_category)
   end
 
   scenario 'and nothing is registered' do

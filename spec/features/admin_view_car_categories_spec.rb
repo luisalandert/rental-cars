@@ -9,11 +9,11 @@ feature 'Admin view car categories' do
     expect(page).to have_content('Para continuar, faça login ou registre-se.')
   end
 
-  scenario 'must be signed in to access details' do
-    CarCategory.create!(name: 'Top', daily_rate: 105.5, car_insurance: 58.5,
+  scenario 'must be signed in to see details' do
+    top = CarCategory.create!(name: 'Top', daily_rate: 105.5, car_insurance: 58.5,
                         third_party_insurance: 10.5)
 
-    visit car_category_path(1)
+    visit car_category_path(top)
 
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content('Para continuar, faça login ou registre-se.')

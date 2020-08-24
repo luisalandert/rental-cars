@@ -34,6 +34,7 @@ feature 'User sign in' do
     click_on 'Sair'
 
     expect(page).to have_link('Entrar')
+    expect(page).to have_content('Logout efetuado com sucesso.')
     expect(page).not_to have_link('Sair')
 
   end
