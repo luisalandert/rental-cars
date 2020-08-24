@@ -1,0 +1,18 @@
+<h1> Locação </h1>
+<dl>
+    <dt><%= Rental.human_attribute_name(:start_date) %></dt>
+    <dd><%= l @rental.start_date %></dd>
+    <dt><%= Rental.human_attribute_name(:end_date) %></dt>
+    <dd><%= l @rental.end_date %></dd>
+    <dt><%= Rental.human_attribute_name(:car_category) %></dt>
+    <dd><%= @rental.car_category.name %></dd>
+    <dt> Previsão de valor </dt>
+    <dd><%= number_to_currency @rental.total %></dd>
+    <dt><%= Rental.human_attribute_name(:customer) %></dt>
+    <dd><%= @rental.customer.name %></dd>
+    <dt><%= Rental.human_attribute_name(:customer) %></dt>
+    <dd><%= @rental.customer.cpf %></dd>
+    <dt><%= Rental.human_attribute_name(:customer) %></dt>
+    <dd><%= @rental.customer.email %></dd>
+
+</dl> 
