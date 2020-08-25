@@ -1,3 +1,7 @@
+<% @rental.errors.full_messages.each do |message| %>
+  <p><%= message %></p>
+<% end %>
+
 <%= form_with model: @rental, local: true do |f| %>
     <div>
         <%= f.label :start_date %>
