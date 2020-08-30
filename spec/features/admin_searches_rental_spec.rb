@@ -31,7 +31,7 @@ feature 'Admin searches rental' do
   xscenario 'and finds nothing' do
   end
 
-  scenario 'finds by partial token' do
+  scenario 'and finds partial token' do
     car_category = CarCategory.create!(name: 'A', car_insurance: 100, daily_rate: 100,
                                        third_party_insurance: 100)
     customer = Customer.create!(name: 'João da Silva', cpf: '515.416.573-06',
@@ -58,5 +58,5 @@ feature 'Admin searches rental' do
     expect(page).to have_content(another_rental.token)
     expect(page).not_to have_content(rental_not_to_be_found.token)
   end
-  
+
 end
