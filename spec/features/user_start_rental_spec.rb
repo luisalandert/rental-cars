@@ -50,7 +50,7 @@ feature 'User start rental' do
     car_model = CarModel.create!(name: 'Fox', year: 2019, manufacturer: 'Volkswagen', 
                                  motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
     car = Car.create!(license_plate: 'ABC123', color: 'Prata', car_model: car_model,
-                      mileage: 0, subsidiary: subsidiary)
+                      mileage: 0, subsidiary: subsidiary, status: :available)
     rental = Rental.create!(start_date: Date.current, end_date: 1.day.from_now,
                             customer: customer, car_category: car_category, user: scheduled_user)
     user = User.create!(name: 'João Pessoa', email: 'email@user.com',
@@ -71,6 +71,8 @@ feature 'User start rental' do
       click_on 'Iniciar'
     end
 
+    car.reload()
+
     expect(page).to have_content(car_category.name)
     expect(page).to have_content(scheduled_user.email)
     expect(page).to have_content(customer.email)
@@ -85,5 +87,6 @@ feature 'User start rental' do
     expect(page).to have_content('RJ78986-10')
     expect(page).to have_content('31 de outubro de 2020, 12:04:44')
     expect(page).not_to have_link('Iniciar locação')
+    expect(car).to be_rented
   end
 end
