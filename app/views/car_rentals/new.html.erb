@@ -1,0 +1,16 @@
+<h1>Retirada de Carro</h1>
+<h2>Dados do Agendamento</h2>
+<%= render @rental %>
+
+<h2>Preencha os campos abaixo para confirmar o início da locação</h2>
+<%= form_with model: [@rental, @car_rental], local: true do |f| %>
+  <div>
+    <%= f.label :car_id, 'Carros disponíveis' %>
+    <%= f.collection_select :car_id, @available_cars, :id, :description, prompt: 'Selecione o carro'%>
+  </div>
+  <div>
+    <%= f.label :driver_license_number, 'CNH do Condutor' %>
+    <%= f.text_field :driver_license_number %>
+  </div>
+  <%= f.submit 'Iniciar' %>
+<% end %>

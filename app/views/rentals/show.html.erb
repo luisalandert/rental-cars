@@ -1,3 +1,40 @@
 <h1> Locação </h1>
 
-<%= render partial: 'rental', locals: {rental: @rental} %>
+<h2>Dados do Agendamento</h2>
+<div>
+  <dl>
+    <dt>Token</dt>
+    <dd><%= @rental.token %></dd>
+    <dt>Data de início</dt>
+    <dd><%= l @rental.start_date %></dd>
+    <dt>Data de término</dt>
+    <dd><%= l @rental.end_date %></dd>
+    <dt>Cliente</dt>
+    <dd><%= @rental.customer.name %></dd>
+    <dd><%= @rental.customer.cpf %></dd>
+    <dd><%= @rental.customer.email %></dd>
+    <dt>Categoria de carro</dt>
+    <dd><%= @rental.car_category.name %></dd>
+    <dt>Previsão de valor</dt>
+    <dd><%= number_to_currency @rental.total %></dd>
+    <dt>Usuário</dt>
+    <dd><%= @rental.user.email %></dd>
+  </dl>
+</div>
+
+<% if @rental.car_rental %>
+  <h2>Locação Iniciada</h2>
+
+  Carro Escolhido: <%= @rental.car_rental.car.description %>
+
+  CNH do Condutor: <%= @rental.car_rental.driver_license_number %>
+
+  Usuário: <%= @rental.car_rental.user.email %>
+
+  Início da Locação: <%= l @rental.car_rental.start_date %>
+
+<% else %>
+
+  <%= link_to 'Iniciar locação', new_rental_car_rental_path(@rental.id) %>
+
+<% end %>
