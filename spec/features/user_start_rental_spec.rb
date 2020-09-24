@@ -88,5 +88,52 @@ feature 'User start rental' do
     expect(page).to have_content('31 de outubro de 2020, 12:04:44')
     expect(page).not_to have_link('Iniciar locação')
     expect(car).to be_rented
+    expect(page).to have_content('Em andamento')
+  end
+
+  scenario 'view only available cars' do
+    subsidiary = Subsidiary.create!(name: 'Morumbi', CNPJ: '00862340434393',
+                                    address: 'Av. Morumbi, 378')
+    user = User.create!(email: 'user@test.com', password: '12345678',
+                        name: 'Sicrano Fulano')
+    customer = Customer.create!(name: 'Fulano Sicrano', email: 'client@test.com',
+                            cpf: '893.203.383-88')
+
+    car_category_a = CarCategory.create!(name: 'A', daily_rate: 100,
+                                        car_insurance: 50,
+                                        third_party_insurance: 30)
+
+    model_ka = CarModel.create!(name: 'Ka', year: 2019, manufacturer: 'Ford', 
+                                motorization: '1.0', car_category: car_category_a,
+                                fuel_type: 'Flex')
+
+    model_fusion = CarModel.create!(name: 'Fusion Hybrid', year: 2020, manufacturer: 'Ford', 
+                                motorization: '2.2', car_category: car_category_a,
+                                fuel_type: 'Elétrico')
+
+    car = Car.create!(license_plate: 'ABC123', color: 'Prata',
+                      car_model: model_ka, mileage: 0, subsidiary: subsidiary, status: :available)
+
+    another_car = Car.create!(license_plate: 'VCD1234', color: 'Prata',
+                              car_model: model_ka, mileage: 0,subsidiary: subsidiary, status: :rented)
+
+    car_fusion = Car.create!(license_plate: 'XYZ9876', color: 'Azul',
+                      car_model: model_fusion, mileage: 0,subsidiary: subsidiary, status: :rented)
+
+    rental = Rental.create!(start_date: Date.current, end_date: 1.day.from_now,
+                            customer: customer, car_category: car_category_a,
+                            user: user)
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Locações'
+    fill_in 'Busca de locação', with: rental.token
+    click_on 'Buscar'
+    click_on 'Ver detalhes'
+    click_on 'Iniciar locação'
+
+    expect(page).to have_content(car.license_plate)
+    expect(page).not_to have_content(another_car.license_plate)
+    expect(page).not_to have_content(car_fusion.license_plate)
   end
 end

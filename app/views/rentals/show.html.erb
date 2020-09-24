@@ -33,6 +33,8 @@
 
   Início da Locação: <%= l @rental.car_rental.start_date %>
 
+  <p>Em andamento</p>
+
 <% else %>
 
   <%= link_to 'Iniciar locação', new_rental_car_rental_path(@rental.id) %>
