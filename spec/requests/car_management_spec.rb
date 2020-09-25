@@ -85,5 +85,23 @@ describe 'Car management' do
         expect(car[:car_model_id]).to eq(attributes[:car_model_id])
       end
     end
+    context 'with invalid params' do
+      it 'without requested params' do
+        post '/api/v1/cars', params: { car: { foo: 'bar' } }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.body).to include('Placa não pode ficar em branco')
+        expect(response.body).to include('Cor não pode ficar em branco')
+        expect(response.body).to include('Modelo de carro é obrigatório(a)')
+        expect(response.body).to include('Filial é obrigatório(a)')
+      end
+
+      it 'without car key' do
+        post '/api/v1/cars'
+
+        expect(response).to have_http_status(:precondition_failed)
+        expect(response.body).to include('Parâmetros inválidos')
+      end
+    end
   end
 end
